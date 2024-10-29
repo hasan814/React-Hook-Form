@@ -1,7 +1,7 @@
-import Users from "./users/components/Users";
+import UsersProvider from "./providers/UsersProvider";
 
 const App = () => {
-  return <Users />;
+  return <UsersProvider />;
 };
 
 export default App;

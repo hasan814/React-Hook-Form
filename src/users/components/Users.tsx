@@ -1,17 +1,14 @@
 import { Stack, TextField } from "@mui/material";
-import { schema, Schema } from "../types/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+import { Schema } from "../types/schema";
+import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
 
 const Users = () => {
-  // ========== State ============
+  // ========== Context ============
   const {
     register,
     formState: { errors },
-  } = useForm<Schema>({
-    mode: "all",
-    resolver: zodResolver(schema),
-  });
+  } = useFormContext<Schema>();
 
   // ========== Rendering ============
   return (
@@ -28,6 +25,7 @@ const Users = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
+      <RHFAutocomplete name="" />
     </Stack>
   );
 };

@@ -25,7 +25,7 @@ const Users = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete name="" />
+      <RHFAutocomplete<Schema> name="state" />
     </Stack>
   );
 };

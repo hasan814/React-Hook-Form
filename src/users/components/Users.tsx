@@ -28,7 +28,10 @@ const Users = () => {
       <RHFAutocomplete<Schema>
         name="states"
         label="States"
-        options={[{ id: "i", label: "Tehran" }]}
+        options={[
+          { id: "1", label: "Tehran" },
+          { id: "2", label: "Shiraz" },
+        ]}
       />
     </Stack>
   );

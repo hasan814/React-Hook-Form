@@ -1,14 +1,29 @@
 import { Stack, TextField } from "@mui/material";
 import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
+import { useStates } from "../services/queries";
 import { Schema } from "../types/schema";
+
 import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
 
 const Users = () => {
+  // ========== Query ============
+  const statesQuery = useStates();
+
   // ========== Context ============
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext<Schema>();
+
+  // ========== Effect ============
+  useEffect(() => {
+    const sub = watch((value) => {
+      console.log(value);
+    });
+    return () => sub.unsubscribe();
+  }, [watch]);
 
   // ========== Rendering ============
   return (
@@ -28,10 +43,7 @@ const Users = () => {
       <RHFAutocomplete<Schema>
         name="states"
         label="States"
-        options={[
-          { id: "1", label: "Tehran" },
-          { id: "2", label: "Shiraz" },
-        ]}
+        options={statesQuery.data}
       />
     </Stack>
   );

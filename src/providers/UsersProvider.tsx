@@ -12,6 +12,8 @@ const UsersProvider = () => {
     resolver: zodResolver(schema),
     defaultValues,
   });
+
+  // ========== Rendering ============
   return (
     <FormProvider {...methods}>
       <Users />

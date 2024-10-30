@@ -20,12 +20,16 @@ const Users = () => {
         helperText={errors.name?.message}
       />
       <TextField
-        {...register("email")}
         label="Email"
+        {...register("email")}
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutocomplete<Schema> name="state" />
+      <RHFAutocomplete<Schema>
+        name="states"
+        label="States"
+        options={[{ id: "i", label: "Tehran" }]}
+      />
     </Stack>
   );
 };

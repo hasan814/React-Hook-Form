@@ -25,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.1",
     "react-query": "^3.39.3",
+    "uuid": "^11.0.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@hookform/devtools": "^4.3.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
+    "@types/uuid": "^10.0.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.53.0",
     "eslint-plugin-react-hooks": "^4.6.0",

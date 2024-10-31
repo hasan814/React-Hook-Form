@@ -1,4 +1,4 @@
-import { useLanguages, useStates } from "../services/queries";
+import { useGenders, useLanguages, useStates } from "../services/queries";
 import { Stack, TextField } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
@@ -6,10 +6,12 @@ import { Schema } from "../types/schema";
 
 import RHFToggleButtonGroup from "../../components/modules/RHFToggleButtonGroup";
 import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
+import RHFRadioGroup from "../../components/modules/RHFRadioGroup";
 
 const Users = () => {
   // ========== Query ============
   const statesQuery = useStates();
+  const gendersQuery = useGenders();
   const languagesQuery = useLanguages();
 
   // ========== Context ============
@@ -50,6 +52,11 @@ const Users = () => {
       <RHFToggleButtonGroup<Schema>
         name="languagesSpoken"
         options={languagesQuery.data}
+      />
+      <RHFRadioGroup<Schema>
+        name="gender"
+        label="Gender"
+        options={gendersQuery.data}
       />
     </Stack>
   );

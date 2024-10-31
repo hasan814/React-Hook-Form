@@ -6,7 +6,8 @@ export const schema = z.object({
     email: z.string().min(1, { message: "Email is required" }).refine((text) => { return patterns.email.test(text), { message: "Email not Valid" } }),
     states: z.array(z.string()).min(1).max(2),
     languagesSpoken: z.array(z.string()),
-    gender: z.string().min(1)
+    gender: z.string().min(1),
+    skills: z.array(z.string()).max(2, { message: 'test' })
 })
 
 
@@ -17,5 +18,6 @@ export const defaultValues: Schema = {
     name: "",
     states: [],
     gender: "",
+    skills: [],
     languagesSpoken: []
 }

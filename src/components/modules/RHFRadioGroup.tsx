@@ -1,14 +1,12 @@
 import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
+import { Option } from "../../types/option";
 import {
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
-import { Option } from "../../types/option";
 
 type RHFProps<T extends FieldValues> = {
   name: Path<T>;

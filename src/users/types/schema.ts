@@ -7,7 +7,10 @@ export const schema = z.object({
     states: z.array(z.string()).min(1).max(2),
     languagesSpoken: z.array(z.string()),
     gender: z.string().min(1),
-    skills: z.array(z.string()).max(2, { message: 'test' })
+    skills: z.array(z.string()).max(2, { message: 'test' }),
+    registerationDateAndTime: z.date(),
+    formerEmploymentPeriod: z.array(z.date()).min(2).max(2),
+    salaryRange: z.array(z.number()).min(2).max(2)
 })
 
 
@@ -19,5 +22,8 @@ export const defaultValues: Schema = {
     states: [],
     gender: "",
     skills: [],
-    languagesSpoken: []
+    languagesSpoken: [],
+    salaryRange: [0, 2000],
+    registerationDateAndTime: new Date(),
+    formerEmploymentPeriod: [new Date(), new Date()]
 }

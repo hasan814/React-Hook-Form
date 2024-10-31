@@ -1,4 +1,4 @@
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 import { Schema } from "../types/schema";
@@ -10,9 +10,12 @@ import {
 } from "../services/queries";
 
 import RHFToggleButtonGroup from "../../components/modules/RHFToggleButtonGroup";
+import RHFDateTimePicker from "../../components/modules/RHFDateTimePicker";
+import RHFDateRangePicker from "../../components/modules/RHFDateRangePicker";
 import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
 import RHFRadioGroup from "../../components/modules/RHFRadioGroup";
 import RHFCheckbox from "../../components/modules/RHFCheckbox";
+import RHFSlider from "../../components/modules/RHFSlider";
 
 const Users = () => {
   // ========== Query ============
@@ -70,6 +73,16 @@ const Users = () => {
         label="Skills"
         name="skills"
       />
+      <RHFDateTimePicker<Schema>
+        name="registerationDateAndTime"
+        label="Registration Date & Time"
+      />
+      <Typography>Former Employment Period:</Typography>
+      <RHFDateRangePicker<Schema>
+        name="formerEmploymentPeriod"
+        label="formerEmploymentPeriod"
+      />
+      <RHFSlider<Schema> name="salaryRange" label="Salary Range" />
     </Stack>
   );
 };

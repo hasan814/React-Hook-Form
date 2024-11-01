@@ -1,7 +1,7 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { Button, Container, Stack, Typography } from "@mui/material";
+import { Schema, defaultValues } from "../types/schema";
 import { useEffect } from "react";
-import { Schema } from "../types/schema";
 import {
   useGenders,
   useLanguages,
@@ -27,7 +27,7 @@ const Users = () => {
   const skillsQuery = useSkills();
 
   // ========== Context ============
-  const { watch, control, unregister } = useFormContext<Schema>();
+  const { watch, control, unregister, reset } = useFormContext<Schema>();
 
   // ========== Effect ============
   useEffect(() => {
@@ -52,59 +52,70 @@ const Users = () => {
     }
   }, [isTeacher, replace, unregister]);
 
+  // ========== Reset Function ============
+  const resetHandler = () => {
+    reset(defaultValues);
+  };
+
   // ========== Rendering ============
   return (
-    <Stack sx={{ gap: 2 }}>
-      <RHFTextField<Schema> name="name" label="Name" />
-      <RHFTextField<Schema> name="email" label="Email" />
-      <RHFAutocomplete<Schema>
-        name="states"
-        label="States"
-        options={statesQuery.data}
-      />
-      <RHFToggleButtonGroup<Schema>
-        name="languagesSpoken"
-        options={languagesQuery.data}
-      />
-      <RHFRadioGroup<Schema>
-        name="gender"
-        label="Gender"
-        options={gendersQuery.data}
-      />
-      <RHFCheckbox<Schema>
-        options={skillsQuery.data}
-        label="Skills"
-        name="skills"
-      />
-      <RHFDateTimePicker<Schema>
-        name="registerationDateAndTime"
-        label="Registration Date & Time"
-      />
-      <Typography>Former Employment Period:</Typography>
-      <RHFDateRangePicker<Schema>
-        name="formerEmploymentPeriod"
-        label="formerEmploymentPeriod"
-      />
-      <RHFSlider<Schema> name="salaryRange" label="Salary Range" />
-      <RHFSwitch<Schema> name="isTeacher" label="Are you a teacher?" />
-      {isTeacher && (
-        <Button onClick={() => append({ name: "" })} type="button">
-          Add new Student
-        </Button>
-      )}
-      {fields.map((field, index) => (
-        <>
-          <RHFTextField
-            name={`students.${index}.name`}
-            label="Name"
-            key={field.id}
-          />
-          <Button color="error" onClick={() => remove(index)} type="button">
-            Remove
+    <Container maxWidth="sm" component="form">
+      <Stack sx={{ gap: 2 }}>
+        <RHFTextField<Schema> name="name" label="Name" />
+        <RHFTextField<Schema> name="email" label="Email" />
+        <RHFAutocomplete<Schema>
+          name="states"
+          label="States"
+          options={statesQuery.data}
+        />
+        <RHFToggleButtonGroup<Schema>
+          name="languagesSpoken"
+          options={languagesQuery.data}
+        />
+        <RHFRadioGroup<Schema>
+          name="gender"
+          label="Gender"
+          options={gendersQuery.data}
+        />
+        <RHFCheckbox<Schema>
+          options={skillsQuery.data}
+          label="Skills"
+          name="skills"
+        />
+        <RHFDateTimePicker<Schema>
+          name="registerationDateAndTime"
+          label="Registration Date & Time"
+        />
+        <Typography>Former Employment Period:</Typography>
+        <RHFDateRangePicker<Schema>
+          name="formerEmploymentPeriod"
+          label="formerEmploymentPeriod"
+        />
+        <RHFSlider<Schema> name="salaryRange" label="Salary Range" />
+        <RHFSwitch<Schema> name="isTeacher" label="Are you a teacher?" />
+        {isTeacher && (
+          <Button onClick={() => append({ name: "" })} type="button">
+            Add new Student
           </Button>
-        </>
-      ))}
-    </Stack>
+        )}
+        {fields.map((field, index) => (
+          <>
+            <RHFTextField
+              name={`students.${index}.name`}
+              label="Name"
+              key={field.id}
+            />
+            <Button color="error" onClick={() => remove(index)} type="button">
+              Remove
+            </Button>
+          </>
+        ))}
+      </Stack>
+      <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Button type="submit">New User</Button>
+        <Button onClick={resetHandler}>Reset</Button>
+      </Stack>
+    </Container>
   );
 };
 

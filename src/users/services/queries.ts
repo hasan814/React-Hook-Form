@@ -64,7 +64,8 @@ export const useUser = (id: string) => {
                 salaryRange: [data.salaryRange[0], data.salaryRange[1]],
                 registerationDateAndTime: new Date(data.registrationDateAndTime),
             }
-        }
+        },
+        enabled: !!id,
     })
 }
 

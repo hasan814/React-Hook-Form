@@ -54,6 +54,12 @@ const Users = () => {
     return () => sub.unsubscribe();
   }, [watch]);
 
+  useEffect(() => {
+    if (userQuery.data) {
+      reset(userQuery.data);
+    }
+  }, [reset, userQuery.data]);
+
   // ========== useFieldArray ============
   const isTeacher = useWatch({ control, name: "isTeacher" });
   const { append, fields, remove, replace } = useFieldArray({
@@ -146,10 +152,10 @@ const Users = () => {
             </>
           ))}
         </Stack>
-        <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Button type="submit">New User</Button>
-          <Button onClick={resetHandler}>Reset</Button>
-        </Stack>
+      </Stack>
+      <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Button type="submit">New User</Button>
+        <Button onClick={resetHandler}>Reset</Button>
       </Stack>
     </Container>
   );

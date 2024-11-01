@@ -1,16 +1,23 @@
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
-import { Schema, defaultValues } from "../types/schema";
+import { defaultValues, Schema } from "../types/schema";
 import { useEffect } from "react";
+
+import {
+  useFormContext,
+  SubmitHandler,
+  useFieldArray,
+  useWatch,
+} from "react-hook-form";
+
 import {
   ListItemButton,
   ListSubheader,
+  ListItemText,
   Typography,
   Container,
   ListItem,
   Button,
   Stack,
   List,
-  ListItemText,
 } from "@mui/material";
 
 import {
@@ -31,6 +38,7 @@ import RHFTextField from "../../components/modules/RHFTextField";
 import RHFCheckbox from "../../components/modules/RHFCheckbox";
 import RHFSlider from "../../components/modules/RHFSlider";
 import RHFSwitch from "../../components/modules/RHFSwitch";
+import { useCreateUser } from "../services/mutations";
 
 const Users = () => {
   // ========== Query ============
@@ -41,9 +49,10 @@ const Users = () => {
   const usersQuery = useUsers();
 
   // ========== Context ============
-  const { watch, control, unregister, reset, setValue } =
+  const { watch, control, unregister, reset, setValue, handleSubmit } =
     useFormContext<Schema>();
   const id = useWatch({ control, name: "id" });
+  const variant = useWatch({ control, name: "variant" });
   const userQuery = useUser(id);
 
   // ========== Effect ============
@@ -85,9 +94,20 @@ const Users = () => {
     setValue("id", id);
   };
 
+  // ========== Submit Function ============
+  const createUserMutation = useCreateUser();
+
+  const onSubmit: SubmitHandler<Schema> = (data) => {
+    if (variant === "create") {
+      createUserMutation.mutate(data);
+    } else {
+      // Edit
+    }
+  };
+
   // ========== Rendering ============
   return (
-    <Container maxWidth="sm" component="form">
+    <Container maxWidth="sm" component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack sx={{ flexDirection: "row", gap: 2 }}>
         <List subheader={<ListSubheader>Users</ListSubheader>}>
           {usersQuery.data?.map((user) => (

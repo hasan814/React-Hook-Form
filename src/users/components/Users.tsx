@@ -10,27 +10,24 @@ import {
 } from "../services/queries";
 
 import RHFToggleButtonGroup from "../../components/modules/RHFToggleButtonGroup";
-import RHFDateTimePicker from "../../components/modules/RHFDateTimePicker";
 import RHFDateRangePicker from "../../components/modules/RHFDateRangePicker";
+import RHFDateTimePicker from "../../components/modules/RHFDateTimePicker";
 import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
 import RHFRadioGroup from "../../components/modules/RHFRadioGroup";
+import RHFTextField from "../../components/modules/RHFTextField";
 import RHFCheckbox from "../../components/modules/RHFCheckbox";
 import RHFSlider from "../../components/modules/RHFSlider";
 import RHFSwitch from "../../components/modules/RHFSwitch";
 
 const Users = () => {
   // ========== Query ============
+  const languagesQuery = useLanguages();
+  const gendersQuery = useGenders();
   const statesQuery = useStates();
   const skillsQuery = useSkills();
-  const gendersQuery = useGenders();
-  const languagesQuery = useLanguages();
 
   // ========== Context ============
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useFormContext<Schema>();
+  const { watch } = useFormContext<Schema>();
 
   // ========== Effect ============
   useEffect(() => {
@@ -43,18 +40,8 @@ const Users = () => {
   // ========== Rendering ============
   return (
     <Stack sx={{ gap: 2 }}>
-      <TextField
-        label="Name"
-        {...register("name")}
-        error={!!errors.name}
-        helperText={errors.name?.message}
-      />
-      <TextField
-        label="Email"
-        {...register("email")}
-        error={!!errors.email}
-        helperText={errors.email?.message}
-      />
+      <RHFTextField<Schema> name="name" label="Name" />
+      <RHFTextField<Schema> name="email" label="Email" />
       <RHFAutocomplete<Schema>
         name="states"
         label="States"

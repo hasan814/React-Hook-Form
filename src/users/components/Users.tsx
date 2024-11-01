@@ -1,5 +1,5 @@
-import { Stack, TextField, Typography } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import { useEffect } from "react";
 import { Schema } from "../types/schema";
 import {
@@ -27,7 +27,7 @@ const Users = () => {
   const skillsQuery = useSkills();
 
   // ========== Context ============
-  const { watch } = useFormContext<Schema>();
+  const { watch, control } = useFormContext<Schema>();
 
   // ========== Effect ============
   useEffect(() => {
@@ -36,6 +36,10 @@ const Users = () => {
     });
     return () => sub.unsubscribe();
   }, [watch]);
+
+  // ========== useFieldArray ============
+  const isTeacher = useWatch({ control, name: "isTeacher" });
+  const { append, fields } = useFieldArray({ control, name: "students" });
 
   // ========== Rendering ============
   return (
@@ -72,6 +76,14 @@ const Users = () => {
       />
       <RHFSlider<Schema> name="salaryRange" label="Salary Range" />
       <RHFSwitch<Schema> name="isTeacher" label="Are you a teacher?" />
+      {isTeacher && (
+        <Button onClick={() => append({ name: "" })} type="button">
+          Add new Student
+        </Button>
+      )}
+      {fields.map((field, index) => (
+        <RHFTextField name={`students`} />
+      ))}
     </Stack>
   );
 };

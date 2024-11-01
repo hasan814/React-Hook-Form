@@ -16,6 +16,7 @@ import RHFAutocomplete from "../../components/modules/RHFAutocomplete";
 import RHFRadioGroup from "../../components/modules/RHFRadioGroup";
 import RHFCheckbox from "../../components/modules/RHFCheckbox";
 import RHFSlider from "../../components/modules/RHFSlider";
+import RHFSwitch from "../../components/modules/RHFSwitch";
 
 const Users = () => {
   // ========== Query ============
@@ -83,6 +84,7 @@ const Users = () => {
         label="formerEmploymentPeriod"
       />
       <RHFSlider<Schema> name="salaryRange" label="Salary Range" />
+      <RHFSwitch<Schema> name="isTeacher" label="Are you a teacher?" />
     </Stack>
   );
 };

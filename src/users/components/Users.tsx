@@ -39,7 +39,10 @@ const Users = () => {
 
   // ========== useFieldArray ============
   const isTeacher = useWatch({ control, name: "isTeacher" });
-  const { append, fields } = useFieldArray({ control, name: "students" });
+  const { append, fields, remove } = useFieldArray({
+    control,
+    name: "students",
+  });
 
   // ========== Rendering ============
   return (
@@ -82,7 +85,16 @@ const Users = () => {
         </Button>
       )}
       {fields.map((field, index) => (
-        <RHFTextField name={`students`} />
+        <>
+          <RHFTextField
+            name={`students.${index}.name`}
+            label="Name"
+            key={field.id}
+          />
+          <Button color="error" onClick={() => remove(index)} type="button">
+            Remove
+          </Button>
+        </>
       ))}
     </Stack>
   );

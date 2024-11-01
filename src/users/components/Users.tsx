@@ -27,7 +27,7 @@ const Users = () => {
   const skillsQuery = useSkills();
 
   // ========== Context ============
-  const { watch, control } = useFormContext<Schema>();
+  const { watch, control, unregister } = useFormContext<Schema>();
 
   // ========== Effect ============
   useEffect(() => {
@@ -39,10 +39,18 @@ const Users = () => {
 
   // ========== useFieldArray ============
   const isTeacher = useWatch({ control, name: "isTeacher" });
-  const { append, fields, remove } = useFieldArray({
+  const { append, fields, remove, replace } = useFieldArray({
     control,
     name: "students",
   });
+
+  // ========== Replace ============
+  useEffect(() => {
+    if (!isTeacher) {
+      replace([]);
+      unregister("students");
+    }
+  }, [isTeacher, replace, unregister]);
 
   // ========== Rendering ============
   return (
